@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-service-php-deployment
+spec:
+  selector:
+    matchLabels:
+      app: web-service-php
+  template:
+    metadata:
+      labels:
+        app: web-service-php
+    spec:
+      containers:
+      - name: web-service-php
+        image: charleszt/web-service-php:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

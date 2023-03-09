@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-database-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mysql-database
+  template:
+    metadata:
+      labels:
+        app: mysql-database
+    spec:
+      containers:
+      - name: mysql-database
+        image: charleszt/mysql-database:1.0
+        volumeMounts:
+        - name: pv-mysql
+          mountPath: /var/lib/mysql
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+      volumes:
+        - name: pv-mysql
+          hostPath:
+            path: /var/lib/mysql
+
